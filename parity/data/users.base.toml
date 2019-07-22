@@ -1,0 +1,29 @@
+[parity]
+chain = "/parity/data.local/dev_chain.json"
+base_path = "/parity/data.local/db"
+db_path = "/parity/data.local/db/chains"
+
+[rpc]
+port = 8545 
+apis = ["secretstore","eth","net","private","parity","personal"]    
+disable = false
+interface = "all"
+hosts = ["all"]
+
+#just for using remix as a tool on this node
+cors = ["https://remix.ethereum.org"]
+
+[secretstore]
+disable = true
+
+[private_tx]
+enabled = false                                             
+
+[network]
+port = 30300
+bootnodes = [
+  #file is only used to import accounts, so the network is not needed 
+]
+
+[misc]
+color = true

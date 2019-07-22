@@ -3,7 +3,7 @@ Contract to enable the management of ZKSnark-hidden coin transactions.
 @Author Westlad, Chaitanya-Konda, iAmMichaelConnor
 */
 
-pragma solidity ^0.5.8;
+pragma solidity ^0.5.0;
 import "./Ownable.sol";
 import "./Verifier_Registry.sol"; //we import the implementation to have visibility of its 'getters'
 import "./Verifier_Interface.sol";

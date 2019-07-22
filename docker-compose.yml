@@ -80,15 +80,21 @@ services:
 #    image: trufflesuite/ganache-cli:latest
 #    command: ganache-cli --accounts=10 --defaultBalanceEther=1000
     build: 
-      context: ./geth
+      #context: ./geth
+      context: ./parity
       dockerfile: Dockerfile
-    command: --nodiscover --rpc --rpcaddr "0.0.0.0" --nousb --shh --rpcapi="eth,web3,shh,personal,net" --allow-insecure-unlock --rpccorsdomain "*" --rpcvhosts=* --ws --wsorigins * --miner.gaslimit 10000000 --password /root/accounts.pwd --unlock "0x070e4ee2a5485631a4ac0b4273c33277f35b04b8, 0xfa3aa74eb91898daf785414843c86e19e199b830, 0xfd02abe0cb92300ebff2bf26c53f4c99f7e4f5ea, 0x106f92fe1e04de930fd877431e3fd9ac41198ca5" --miner.etherbase 0x070e4ee2a5485631a4ac0b4273c33277f35b04b8 --mine --miner.gastarget 1000 --miner.gasprice "0" 
-    # --dev  
-    #command: --config /root/config.toml 
+      args:
+        - ACCOUNT_NAME=alice
+        - NODE_ID=A09E63F29B0832EF7CD606ED73D0E76B84B3552FF122AF148C6FF0027D59ADF8
+
+    #command: --nodiscover --rpc --rpcaddr "0.0.0.0" --nousb --shh --rpcapi="eth,web3,shh,personal,net" --allow-insecure-unlock --rpccorsdomain "*" --rpcvhosts=* --ws --wsorigins * --miner.gaslimit 10000000 --password /root/accounts.pwd --unlock "0x070e4ee2a5485631a4ac0b4273c33277f35b04b8, 0xfa3aa74eb91898daf785414843c86e19e199b830, 0xfd02abe0cb92300ebff2bf26c53f4c99f7e4f5ea, 0x106f92fe1e04de930fd877431e3fd9ac41198ca5" --miner.etherbase 0x070e4ee2a5485631a4ac0b4273c33277f35b04b8 --mine --miner.gastarget 1000 --miner.gasprice "0" 
     #volumes:
     #- ./geth/.geth:/root
     ports:
       - 8545:8545
+      - 8546:8546
+    #volumes:
+    #  - ./parity/.data:/parity/data.local/db/chains
 
   database:
     build:
@@ -120,11 +126,11 @@ services:
   truffle-offchain:
     image: ajmay/truffle:5.0.9
     environment:
-      SOLC_VERSION: 0.5.8
+      SOLC_VERSION: 0.5.0
       ETH_HOST: ganache
       ETH_GAS: 6000000
       #ETH_GAS_PRICE: 20000000000
-      ETH_GAS_PRICE: 0
+      ETH_GAS_PRICE: 20000
     volumes:
       - ./offchain/contracts:/truffle/contracts:delegated
       - ./offchain/migrations/:/truffle/migrations:delegated
@@ -139,11 +145,11 @@ services:
   truffle-zkp:
     image: ajmay/truffle:5.0.9
     environment:
-      SOLC_VERSION: 0.5.8
+      SOLC_VERSION: 0.5.0
       ETH_HOST: ganache
       ETH_GAS: 8000000
       #ETH_GAS_PRICE: 20000000000
-      ETH_GAS_PRICE: 0
+      ETH_GAS_PRICE: 20000
     volumes:
       - ./zkp/contracts/:/truffle/contracts:delegated
       - ./zkp/migrations/:/truffle/migrations:delegated

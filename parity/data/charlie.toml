@@ -1,0 +1,40 @@
+[parity]
+chain = "/parity/data.local/dev_chain.json"
+base_path = "/parity/data.local/db"
+db_path = "/parity/data.local/db/chains"
+
+[rpc]
+port = 8545 #default http port for RPC
+apis = ["secretstore","eth","net","private","parity","personal"]    #add "private","parity","personal"
+cors = ["all"]                                # allow remix to access this node
+hosts = ["all"]
+interface = "all"
+disable = false
+
+[websockets]
+disable = true
+
+[secretstore]
+disable = true # users do not run a secret store node
+
+[private_tx]
+enabled = true                                                # Enable private transactions.
+validators = ["0x296c8d9ddf406b2937338559f923a1f500bc8849"]   # Bob's account as a validator
+account = "0x296c8d9ddf406b2937338559f923a1f500bc8849"        # Bob's address to signing requests sent to the Secret Store.
+passwords = "/parity/data.local/charlie.pwd"                      # File containing the password to unlock Bob's accounts (signer, private account, validators).
+sstore_url = "http://secret_store_1:8010"                          # Secret Store URL used for encrypting private transactions.
+
+[network]
+port = 30300
+
+bootnodes = [
+  "enode://a4248bea1aace535537e1a55cccda448d8ba5876c9b04e435b7fed540c9b4652e593487c6cb81c6509ace2e0f12f67bd69aa6fece907a27b9e943791f16c24fe@10.5.10.1:30300",
+  "enode://d380634fa7279323044a8749aebbe2547582bfcfa4e57d6fbd9532f00d85e1dfde480b1d37d81a9f4e3fce2abfadff0cc6fb44e5f2c54c82f3b5d5e8a31b7e10@10.5.10.2:30300",
+  "enode://a8c9b36764995bfc619c4114bf0faef1496d7183dc327a980dcd78266fd36840273cc8b9eef90af9c3606fe8ac34cfd29a7bf50a66ab6ac8bdff548a15b95156@10.5.10.3:30300",
+  "enode://0999c209f9804dda382cf7a0a1f1e2c2f0527bb2a7bb1af78097d3fd26e02c4e1d06e4de56e620374887617f85b2d7922237f6cf4c044027edc48d87397a041b@10.5.10.4:30300",
+  "enode://0e62cc34e09ac4cdbb7501f06f1140409c25ff612acbfa2ac7515d46fdb9d8a3c35b67c1b711bb3ef5b96b4212247348d7edb97952773c27b891447bb8388a4c@10.5.10.5:30300"
+]
+
+[misc]
+logging = "privatetx=trace"
+color = true

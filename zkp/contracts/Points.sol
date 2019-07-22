@@ -1,4 +1,4 @@
-pragma solidity ^0.5.8;
+pragma solidity ^0.5.0;
 
 //Points library modularised by Michael Connor 2019
 

@@ -1,0 +1,17 @@
+FROM ubuntu:18.10 as parity_build
+RUN mkdir -p /parity
+WORKDIR /parity
+RUN apt-get update
+RUN apt-get install git make gcc g++ libudev-dev pkg-config file cmake wget -y
+RUN git clone https://github.com/paritytech/parity
+WORKDIR /parity/parity
+RUN wget https://sh.rustup.rs/rustup-init.sh
+RUN chmod +x ./rustup-init.sh
+RUN ./rustup-init.sh -y
+RUN /$HOME/.cargo/bin/cargo build --features secretstore --release
+
+
+FROM ubuntu:18.10
+RUN mkdir -p /parity
+WORKDIR /parity
+COPY --from=parity_build /parity/parity/target/release/parity .
